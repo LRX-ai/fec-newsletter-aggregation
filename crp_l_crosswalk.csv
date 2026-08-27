@@ -1,0 +1,461 @@
+catcode,catorder,catname,industry,sector,newsletter
+A0000,A11,Agriculture,Misc Agriculture,Agribusiness,Agri-Food
+A1000,A01,Crop production & basic processing,Crop Production & Basic Processing,Agribusiness,Agri-Food
+A1100,A01,Cotton,Crop Production & Basic Processing,Agribusiness,Agri-Food
+A1200,A01,Sugar cane & sugar beets,Crop Production & Basic Processing,Agribusiness,Agri-Food
+A1300,A02,Tobacco & Tobacco products,Tobacco,Agribusiness,Agri-Food
+A1400,A01,"Vegetables, fruits and tree nut",Crop Production & Basic Processing,Agribusiness,Agri-Food
+A1500,A01,"Wheat, corn, soybeans and cash grain",Crop Production & Basic Processing,Agribusiness,Agri-Food
+A1600,A01,"Other commodities (incl rice, peanuts, honey)",Crop Production & Basic Processing,Agribusiness,Agri-Food
+A2000,A04,Milk & dairy producers,Dairy,Agribusiness,Agri-Food
+A2300,A05,Poultry & eggs,Poultry & Eggs,Agribusiness,Agri-Food
+A3000,A06,Livestock,Livestock,Agribusiness,Agri-Food
+A3100,A07,Animal feed & health products,Agricultural Services/Products,Agribusiness,Agri-Food
+A3200,A06,Sheep and Wool Producers,Livestock,Agribusiness,Agri-Food
+A3300,A06,Feedlots & related livestock services,Livestock,Agribusiness,Agri-Food
+A3500,A06,Horse breeders,Livestock,Agribusiness,Agri-Food
+A4000,A07,Agricultural services & related industries,Agricultural Services/Products,Agribusiness,Agri-Food
+A4100,A07,Agricultural chemicals (fertilizers & pesticides),Agricultural Services/Products,Agribusiness,Agri-Food
+A4200,A07,Farm machinery & equipment,Agricultural Services/Products,Agribusiness,Agri-Food
+A4300,A07,Grain traders & terminals,Agricultural Services/Products,Agribusiness,Agri-Food
+A4500,A07,Veterinarians,Agricultural Services/Products,Agribusiness,Agri-Food
+A5000,A10,Forestry & Forest Products,Forestry & Forest Products,Agribusiness,Agri-Food
+A5200,A10,Paper & pulp mills and paper manufacturing,Forestry & Forest Products,Agribusiness,Agri-Food
+A6000,A07,Farm organizations & cooperatives,Agricultural Services/Products,Agribusiness,Agri-Food
+A6500,A07,Farm bureaus,Agricultural Services/Products,Agribusiness,Agri-Food
+A8000,A07,Florists & Nursery Services,Agricultural Services/Products,Agribusiness,Agri-Food
+B0000,C01,Construction & Public Works,General Contractors,Construction,Construction & Housing
+B0500,C01,Builders associations,General Contractors,Construction,Construction & Housing
+B1000,C01,"Public works, industrial & commercial construction",General Contractors,Construction,Construction & Housing
+B1200,C01,Dredging Contractors,General Contractors,Construction,Construction & Housing
+B1500,C01,"Construction, unclassified",General Contractors,Construction,Construction & Housing
+B2000,C02,Residential construction,Home Builders,Construction,Construction & Housing
+B2400,C02,Mobile home construction,Home Builders,Construction,Construction & Housing
+B3000,C03,Special trade contractors,Special Trade Contractors,Construction,Construction & Housing
+B3200,C03,Electrical contractors,Special Trade Contractors,Construction,Construction & Housing
+B3400,C03,"Plumbing, heating & air conditioning",Special Trade Contractors,Construction,Construction & Housing
+B3600,C03,Landscaping & Excavation Svcs,Special Trade Contractors,Construction,Construction & Housing
+B4000,C04,"Engineering, architecture & construction mgmt svcs",Construction Services,Construction,Construction & Housing
+B4200,C04,Architectural services,Construction Services,Construction,Construction & Housing
+B4300,C04,Surveying,Construction Services,Construction,Construction & Housing
+B4400,C04,Engineers - type unknown,Construction Services,Construction,Construction & Housing
+B5000,C05,Building materials,Building Materials & Equipment,Construction,Construction & Housing
+B5100,C05,"Stone, clay, glass & concrete products",Building Materials & Equipment,Construction,Construction & Housing
+B5200,C05,Lumber and wood products,Building Materials & Equipment,Construction,Construction & Housing
+B5300,C05,Plumbing & pipe products,Building Materials & Equipment,Construction,Construction & Housing
+B5400,C05,Other construction-related products,Building Materials & Equipment,Construction,Construction & Housing
+B5500,C05,Electrical Supply,Building Materials & Equipment,Construction,Construction & Housing
+B6000,C05,Construction equipment,Building Materials & Equipment,Construction,Construction & Housing
+C0000,B00,Communications & Electronics,Misc Communications/Electronics,Communic/Electronics,"ICT & Cybersecurity, Manufacturing"
+C1000,B01,Printing and publishing (printed & online),Printing & Publishing,Communic/Electronics,
+C1100,B01,"Book, newspaper & periodical publishing",Printing & Publishing,Communic/Electronics,
+C1300,B01,Commercial printing & typesetting,Printing & Publishing,Communic/Electronics,Manufacturing
+C1400,B01,Greeting card publishing,Printing & Publishing,Communic/Electronics,Manufacturing
+C2000,B02,Entertainment Industry/Broadcast & Motion Pictures,TV/Movies/Music,Communic/Electronics,Manufacturing
+C2100,B02,Commercial TV & radio stations,TV/Movies/Music,Communic/Electronics,ICT & Cybersecurity
+C2200,B02,Cable & satellite TV production,TV/Movies/Music,Communic/Electronics,ICT & Cybersecurity
+C2300,B02,TV production,TV/Movies/Music,Communic/Electronics,
+C2400,B02,Motion Picture production & distribution,TV/Movies/Music,Communic/Electronics,
+C2600,B02,Recorded Music & music production,TV/Movies/Music,Communic/Electronics,
+C2700,B02,Movie Theaters,TV/Movies/Music,Communic/Electronics,Hospitality & Retail
+C2800,B02,"Bands, orchestras & other live music production",TV/Movies/Music,Communic/Electronics,Hospitality & Retail
+C2900,B02,Live theater & other entertainment productions,TV/Movies/Music,Communic/Electronics,Hospitality & Retail
+C4000,B09,Telecommunications,Telecom Services,Communic/Electronics,ICT & Cybersecurity
+C4100,B08,Telephone utilities,Telephone Utilities,Communic/Electronics,ICT & Cybersecurity
+C4200,B08,Long-distance telephone & telegraph service,Telephone Utilities,Communic/Electronics,ICT & Cybersecurity
+C4300,B09,Cell/wireless service providers,Telecom Services,Communic/Electronics,ICT & Cybersecurity
+C4400,B09,Satellite communications,Telecom Services,Communic/Electronics,ICT & Cybersecurity
+C4500,B09,Cable distributors & service providers,Telecom Services,Communic/Electronics,ICT & Cybersecurity
+C4600,B09,Other Communications Services,Telecom Services,Communic/Electronics,ICT & Cybersecurity
+C5000,B12,Electronics manufacturing & services,Electronics Mfg & Equip,Communic/Electronics,Manufacturing
+C5100,B12,Computer manufacture & services,Electronics Mfg & Equip,Communic/Electronics,Manufacturing
+C5110,B12,Computer components & accessories,Electronics Mfg & Equip,Communic/Electronics,Manufacturing
+C5120,B12,Computer software,Electronics Mfg & Equip,Communic/Electronics,ICT & Cybersecurity
+C5130,B12,Data processing & computer services,Electronics Mfg & Equip,Communic/Electronics,ICT & Cybersecurity
+C5200,B12,Telecommunications Devices,Electronics Mfg & Equip,Communic/Electronics,ICT & Cybersecurity
+C5300,B12,Other Communication Electronics,Electronics Mfg & Equip,Communic/Electronics,ICT & Cybersecurity
+C5400,B12,Industrial Electronics,Electronics Mfg & Equip,Communic/Electronics,Manufacturing
+C6000,B13,Internet & Online Services,Internet,Communic/Electronics,ICT & Cybersecurity
+C6100,B13,Online Entertainment,Internet,Communic/Electronics,ICT & Cybersecurity
+C6200,B13,Social Media,Internet,Communic/Electronics,ICT & Cybersecurity
+C6300,B13,Search Engine/Email Services,Internet,Communic/Electronics,ICT & Cybersecurity
+C6400,B13,Vendors,Internet,Communic/Electronics,ICT & Cybersecurity
+C6500,B13,Hosting/Cloud Services,Internet,Communic/Electronics,ICT & Cybersecurity
+D0000,D03,Defense,Misc Defense,Defense,Defense
+D2000,D01,Defense aerospace contractors,Defense Aerospace,Defense,"Defense, Freight & Transport"
+D3000,D02,Defense electronic contractors,Defense Electronics,Defense,Defense
+D4000,D03,Defense Research & Development,Misc Defense,Defense,Defense
+D5000,D03,Defense shipbuilders,Misc Defense,Defense,Defense
+D6000,D03,Homeland Security contractors,Misc Defense,Defense,Defense
+D8000,D03,Ground-based & other weapons systems,Misc Defense,Defense,Defense
+D9000,D03,Defense-related services,Misc Defense,Defense,Defense
+E0000,E07,"Energy, Natural Resources and Environment",Misc Energy,Energy/Nat Resource,"Oil & Gas, Utilities & Power, Environment"
+E1000,E07,Energy production & distribution,Misc Energy,Energy/Nat Resource,"Oil & Gas, Utilities & Power"
+E1100,E01,Oil & Gas,Oil & Gas,Energy/Nat Resource,Oil & Gas
+E1110,E01,Major (multinational) oil & gas producers,Oil & Gas,Energy/Nat Resource,Oil & Gas
+E1120,E01,Independent oil & gas producers,Oil & Gas,Energy/Nat Resource,Oil & Gas
+E1140,E01,Natural Gas transmission & distribution,Oil & Gas,Energy/Nat Resource,Oil & Gas
+E1150,E01,"Oilfield service, equipment & exploration",Oil & Gas,Energy/Nat Resource,Oil & Gas
+E1160,E01,Petroleum refining & marketing,Oil & Gas,Energy/Nat Resource,Oil & Gas
+E1170,E01,Gasoline service stations,Oil & Gas,Energy/Nat Resource,Oil & Gas
+E1180,E01,Fuel oil dealers,Oil & Gas,Energy/Nat Resource,Oil & Gas
+E1190,E01,LPG/Liquid Propane dealers & producers,Oil & Gas,Energy/Nat Resource,Oil & Gas
+E1200,E04,Mining,Mining,Energy/Nat Resource,Mining
+E1210,E04,Coal mining,Mining,Energy/Nat Resource,Mining
+E1220,E04,Metal mining & processing,Mining,Energy/Nat Resource,Mining
+E1230,E04,Non-metallic mining,Mining,Energy/Nat Resource,Mining
+E1240,E04,Mining services & equipment,Mining,Energy/Nat Resource,Mining
+E1300,E08,Nuclear energy,Electric Utilities,Energy/Nat Resource,Utilities & Power
+E1320,E08,"Nuclear plant construction, equipment & svcs",Electric Utilities,Energy/Nat Resource,Utilities & Power
+E1500,E07,Alternate energy production & services,Misc Energy,Energy/Nat Resource,Utilities & Power
+E1600,E08,Electric Power utilities,Electric Utilities,Energy/Nat Resource,Utilities & Power
+E1610,E08,Rural electric cooperatives,Electric Utilities,Energy/Nat Resource,Utilities & Power
+E1620,E08,Gas & Electric Utilities,Electric Utilities,Energy/Nat Resource,Utilities & Power
+E1630,E08,Independent power generation & cogeneration,Electric Utilities,Energy/Nat Resource,Utilities & Power
+E1700,E07,Power plant construction & equipment,Misc Energy,Energy/Nat Resource,Utilities & Power
+E2000,E09,"Environmental services, equipment & consulting",Environmental Svcs/Equipment,Energy/Nat Resource,Utilities & Power
+E3000,E10,Waste management,Waste Management,Energy/Nat Resource,Environment
+E4000,E11,Fisheries & wildlife,Fisheries & Wildlife,Energy/Nat Resource,Fisheries
+E4100,E11,Fishing,Fisheries & Wildlife,Energy/Nat Resource,Fisheries
+E4200,E11,Hunting & wildlife,Fisheries & Wildlife,Energy/Nat Resource,Fisheries
+E5000,E07,Water Utilities,Misc Energy,Energy/Nat Resource,"Utilities & Power, Environment"
+F0000,F13,"Finance, Insurance & Real Estate",Misc Finance,Finance/Insur/RealEst,Finance & Insurance
+F1000,F03,Banks & lending institutions,Commercial Banks,Finance/Insur/RealEst,Finance & Insurance
+F1100,F03,Commercial banks & bank holding companies,Commercial Banks,Finance/Insur/RealEst,Finance & Insurance
+F1200,F04,Savings banks & Savings and Loans,Savings & Loans,Finance/Insur/RealEst,Finance & Insurance
+F1300,F05,Credit unions,Credit Unions,Finance/Insur/RealEst,Finance & Insurance
+F1400,F06,Credit agencies & finance companies,Finance/Credit Companies,Finance/Insur/RealEst,Finance & Insurance
+F1410,F06,Student loan companies,Finance/Credit Companies,Finance/Insur/RealEst,Finance & Insurance
+F1420,F06,Payday lenders,Finance/Credit Companies,Finance/Insur/RealEst,Finance & Insurance
+F1999,F07,Crypto Firms,Crypto,Crypto,Finance & Insurance
+F2000,F07,"Securities, commodities & investment",Securities & Investment,Finance/Insur/RealEst,Finance & Insurance
+F2100,F07,Security brokers & investment companies,Securities & Investment,Finance/Insur/RealEst,Finance & Insurance
+F2110,F07,Discount & Online Brokers,Securities & Investment,Finance/Insur/RealEst,Finance & Insurance
+F2200,F07,Commodity brokers/dealers,Securities & Investment,Finance/Insur/RealEst,Finance & Insurance
+F2300,F07,Investment banking,Securities & Investment,Finance/Insur/RealEst,Finance & Insurance
+F2400,F07,Stock exchanges,Securities & Investment,Finance/Insur/RealEst,Finance & Insurance
+F2500,F07,Venture capital,Securities & Investment,Finance/Insur/RealEst,Finance & Insurance
+F2600,F07,Private Equity & Investment Firms,Securities & Investment,Finance/Insur/RealEst,Finance & Insurance
+F2700,F07,Hedge Funds,Securities & Investment,Finance/Insur/RealEst,Finance & Insurance
+F3000,F09,Insurance,Insurance,Finance/Insur/RealEst,Finance & Insurance
+F3100,F09,"Insurance companies, brokers & agents",Insurance,Finance/Insur/RealEst,Finance & Insurance
+F3200,F09,Accident & health insurance,Insurance,Finance/Insur/RealEst,Finance & Insurance
+F3300,F09,Life insurance,Insurance,Finance/Insur/RealEst,Finance & Insurance
+F3400,F09,Property & casualty insurance,Insurance,Finance/Insur/RealEst,Finance & Insurance
+F4000,F10,Real estate,Real Estate,Finance/Insur/RealEst,Finance & Insurance
+F4100,F10,Real Estate developers & subdividers,Real Estate,Finance/Insur/RealEst,Finance & Insurance
+F4200,F10,Real estate agents,Real Estate,Finance/Insur/RealEst,Finance & Insurance
+F4300,F10,Title insurance & title abstract offices,Real Estate,Finance/Insur/RealEst,Finance & Insurance
+F4400,F10,Mobile home dealers & parks,Real Estate,Finance/Insur/RealEst,Finance & Insurance
+F4500,F10,Building operators and managers,Real Estate,Finance/Insur/RealEst,Finance & Insurance
+F4600,F10,Mortgage bankers and brokers,Real Estate,Finance/Insur/RealEst,Finance & Insurance
+F4700,F10,Other real estate services,Real Estate,Finance/Insur/RealEst,Finance & Insurance
+F5000,F13,Financial services & consulting,Misc Finance,Finance/Insur/RealEst,Finance & Insurance
+F5100,F11,Accountants,Accountants,Finance/Insur/RealEst,Finance & Insurance
+F5200,F13,Credit reporting services & collection agencies,Misc Finance,Finance/Insur/RealEst,Finance & Insurance
+F5300,F13,Tax return services,Misc Finance,Finance/Insur/RealEst,Finance & Insurance
+F5500,F13,Other financial services,Misc Finance,Finance/Insur/RealEst,Finance & Insurance
+F7000,F13,Investors,Misc Finance,Finance/Insur/RealEst,Finance & Insurance
+G0000,N12,General commerce,Misc Business,Misc Business,Hospitality & Retail
+G1000,N00,General business associations,Business Associations,Misc Business,Hospitality & Retail
+G1100,N00,Chambers of commerce,Business Associations,Misc Business,Hospitality & Retail
+G1200,N00,Small business associations,Business Associations,Misc Business,Hospitality & Retail
+G1300,N00,Pro-business associations,Business Associations,Misc Business,Hospitality & Retail
+G1310,N00,Business tax coalitions,Business Associations,Misc Business,Hospitality & Retail
+G1400,N00,International trade associations,Business Associations,Misc Business,Hospitality & Retail
+G2000,A09,Food & Beverage Products and Services,Food Processing & Sales,Agribusiness,Agri-Food
+G2100,A09,Food and kindred products manufacturing,Food Processing & Sales,Agribusiness,Agri-Food
+G2110,N01,Artificial sweeteners and food additives,Food & Beverage,Misc Business,Agri-Food
+G2200,N01,Confectionery processors & manufacturers,Food & Beverage,Misc Business,Agri-Food
+G2300,A09,Meat processing & products,Food Processing & Sales,Agribusiness,Agri-Food
+G2350,N01,Fish Processing,Food & Beverage,Misc Business,Agri-Food
+G2400,A09,Food stores,Food Processing & Sales,Agribusiness,Agri-Food
+G2500,A09,Food wholesalers,Food Processing & Sales,Agribusiness,Agri-Food
+G2600,N01,Beverages (non-alcoholic),Food & Beverage,Misc Business,Agri-Food
+G2700,N01,Beverage bottling & distribution,Food & Beverage,Misc Business,Agri-Food
+G2800,N02,Alcohol,"Beer, Wine & Liquor",Misc Business,Agri-Food
+G2810,N02,Beer,"Beer, Wine & Liquor",Misc Business,Agri-Food
+G2820,N02,Wine & distilled spirits manufacturing,"Beer, Wine & Liquor",Misc Business,Agri-Food
+G2840,N02,Liquor stores,"Beer, Wine & Liquor",Misc Business,Agri-Food
+G2850,N02,Liquor wholesalers,"Beer, Wine & Liquor",Misc Business,Agri-Food
+G2860,N09,"Marijuana Production, Sales & Paraphernalia",Marijuana,Misc Business,Agri-Food
+G2900,N01,Restaurants & drinking establishments,Food & Beverage,Misc Business,"Agri-Food, Hospitality & Retail"
+G2910,N01,Food catering & food services,Food & Beverage,Misc Business,"Agri-Food, Hospitality & Retail"
+G3000,N12,Wholesale trade,Misc Business,Misc Business,Hospitality & Retail
+G3500,N12,Import/Export services,Misc Business,Misc Business,Hospitality & Retail
+G4000,N03,Retail trade,Retail Sales,Misc Business,Hospitality & Retail
+G4100,N03,Apparel & accessory stores,Retail Sales,Misc Business,Hospitality & Retail
+G4200,N03,Consumer electronics & computer stores,Retail Sales,Misc Business,Hospitality & Retail
+G4300,N03,"Department, variety & convenience stores",Retail Sales,Misc Business,Hospitality & Retail
+G4400,N03,Furniture & appliance stores,Retail Sales,Misc Business,Hospitality & Retail
+G4500,N03,Hardware & building materials stores,Retail Sales,Misc Business,Hospitality & Retail
+G4600,N03,Miscellaneous retail stores,Retail Sales,Misc Business,Hospitality & Retail
+G4700,N03,Catalog & mail order houses,Retail Sales,Misc Business,Hospitality & Retail
+G4800,N03,Direct sales,Retail Sales,Misc Business,Hospitality & Retail
+G4850,N03,Vending Machine Sales & Services,Retail Sales,Misc Business,Hospitality & Retail
+G4900,N03,Drug stores,Retail Sales,Misc Business,Hospitality & Retail
+G5000,N04,Services,Misc Services,Misc Business,Hospitality & Retail
+G5100,N04,Beauty & barber shops,Misc Services,Misc Business,Hospitality & Retail
+G5200,N05,Business services,Business Services,Misc Business,
+G5210,N05,Advertising & public relations services,Business Services,Misc Business,
+G5220,N05,Direct mail advertising services,Business Services,Misc Business,
+G5230,N05,Outdoor advertising services,Business Services,Misc Business,
+G5240,N05,"Commercial photography, art & graphic design",Business Services,Misc Business,
+G5250,N05,Employment agencies,Business Services,Misc Business,
+G5260,N05,Political consultants/advisers,Business Services,Misc Business,
+G5270,N05,Management consultants & services,Business Services,Misc Business,
+G5280,N05,Marketing research services,Business Services,Misc Business,
+G5290,N05,Security services,Business Services,Misc Business,
+G5300,N04,Equipment rental & leasing,Misc Services,Misc Business,
+G5400,N04,Funeral services,Misc Services,Misc Business,
+G5500,N04,Laundries & dry cleaners,Misc Services,Misc Business,
+G5600,N04,Miscellaneous repair services,Misc Services,Misc Business,
+G5700,N04,Pest control,Misc Services,Misc Business,
+G5800,N04,Physical fitness centers,Misc Services,Misc Business,Hospitality & Retail
+G6000,N06,Recreation/Entertainment,Recreation/Live Entertainment,Misc Business,Hospitality & Retail
+G6100,N06,Amusement/recreation centers,Recreation/Live Entertainment,Misc Business,Hospitality & Retail
+G6400,N06,"Professional sports, arenas & related equip & svcs",Recreation/Live Entertainment,Misc Business,Hospitality & Retail
+G6500,N07,"Casinos, racetracks & gambling",Casinos/Gambling,Misc Business,Hospitality & Retail
+G6550,N07,Indian Gaming,Casinos/Gambling,Misc Business,"Hospitality & Retail, Tribal Affairs"
+G6700,N06,Amusement parks,Recreation/Live Entertainment,Misc Business,Hospitality & Retail
+G6800,N04,Video rental,Misc Services,Misc Business,Hospitality & Retail
+G7000,N12,Correctional facilities constr & mgmt/for-profit,Misc Business,Misc Business,Hospitality & Retail
+H0000,H05,"Health, Education & Human Resources",Misc Health,Health,Healthcare
+H1000,H01,Health professionals,Health Professionals,Health,Healthcare
+H1100,H01,Physicians,Health Professionals,Health,Healthcare
+H1110,H01,Psychiatrists & psychologists,Health Professionals,Health,Healthcare
+H1120,H01,Optometrists & Ophthalmologists,Health Professionals,Health,Healthcare
+H1130,H01,Other physician specialists,Health Professionals,Health,Healthcare
+H1400,H01,Dentists,Health Professionals,Health,Healthcare
+H1500,H01,Chiropractors,Health Professionals,Health,Healthcare
+H1700,H01,Other non-physician health practitioners,Health Professionals,Health,Healthcare
+H1710,H01,Nurses,Health Professionals,Health,Healthcare
+H1750,H01,Pharmacists,Health Professionals,Health,Healthcare
+H2000,H02,Health care institutions,Hospitals/Nursing Homes,Health,Healthcare
+H2100,H02,Hospitals,Hospitals/Nursing Homes,Health,Healthcare
+H2200,H02,Nursing homes,Hospitals/Nursing Homes,Health,Healthcare
+H2300,H02,Drug & alcohol treatment hospitals,Hospitals/Nursing Homes,Health,Healthcare
+H3000,H03,Health care services,Health Services/HMOs,Health,Healthcare
+H3100,H03,Home care services,Health Services/HMOs,Health,Healthcare
+H3200,H03,Outpatient health services (incl drug & alcohol),Health Services/HMOs,Health,Healthcare
+H3300,H03,Optical services (glasses & contact lenses),Health Services/HMOs,Health,Healthcare
+H3400,H03,Medical laboratories,Health Services/HMOs,Health,Healthcare
+H3500,H03,AIDS treatment & testing,Health Services/HMOs,Health,Healthcare
+H3700,H03,HMOs,Health Services/HMOs,Health,Healthcare
+H3800,H03,Mental Health Services,Health Services/HMOs,Health,Healthcare
+H3900,H03,Health care Consultants,Health Services/HMOs,Health,Healthcare
+H4000,H04,Health care products,Pharmaceuticals/Health Products,Health,Healthcare
+H4100,H04,Medical Devices & Supplies,Pharmaceuticals/Health Products,Health,Healthcare
+H4200,H04,Personal health care products,Pharmaceuticals/Health Products,Health,Healthcare
+H4300,H04,Pharmaceutical manufacturing,Pharmaceuticals/Health Products,Health,Healthcare
+H4400,H04,Pharmaceutical wholesale,Pharmaceuticals/Health Products,Health,Healthcare
+H4500,H04,Biotech products & research,Pharmaceuticals/Health Products,Health,Healthcare
+H4600,H04,Nutritional & dietary supplements,Pharmaceuticals/Health Products,Health,Healthcare
+H4700,H04,Pharmaceutical cannabis,Pharmaceuticals/Health Products,Health,Healthcare
+H5000,W04,Education,Education,Other,Higher Ed
+H5100,W04,Schools & colleges,Education,Other,Higher Ed
+H5150,W04,Medical schools,Education,Other,Higher Ed
+H5170,W04,Law schools,Education,Other,Higher Ed
+H5200,W04,"Technical, business and vocational schools & svcs",Education,Other,Higher Ed
+H5300,W04,For-profit Education,Education,Other,Higher Ed
+H6000,W07,Welfare & Social Work,Other,Other,Higher Ed
+J0000,Q10,Ideological & Single Issue PACs,Misc Issues,Ideology/Single-Issue,Social Issues
+J1000,Q10,General Ideological,Misc Issues,Ideology/Single-Issue,Social Issues
+J1100,Q01,Republican/Conservative,Republican/Conservative,Ideology/Single-Issue,
+J1110,Q01,Christian Conservative,Republican/Conservative,Ideology/Single-Issue,
+J1200,Q02,Democratic/Liberal,Democratic/Liberal,Ideology/Single-Issue,
+J1300,Q10,Third-party committees,Misc Issues,Ideology/Single-Issue,
+J2000,Q03,Leadership committees,Leadership PACs,Ideology/Single-Issue,
+J2100,Q03,Democratic leadership PAC,Leadership PACs,Ideology/Single-Issue,
+J2200,Q03,Republican leadership PAC,Leadership PACs,Ideology/Single-Issue,
+J2300,Q03,"Democratic officials, candidates & former members",Leadership PACs,Ideology/Single-Issue,
+J2400,Q03,"Republican officials, candidates & former members",Leadership PACs,Ideology/Single-Issue,
+J2500,Q03,Non-Federal candidate committees,Leadership PACs,Ideology/Single-Issue,
+J3000,Q10,Consumer groups,Misc Issues,Ideology/Single-Issue,Social Issues
+J4000,Q10,Fiscal & tax policy,Misc Issues,Ideology/Single-Issue,Social Issues
+J5000,Q04,Foreign policy,Foreign & Defense Policy,Ideology/Single-Issue,Foreign Affairs
+J5100,Q05,Pro-Israel,Pro-Israel,Ideology/Single-Issue,Foreign Affairs
+J5200,Q04,Anti-Castro,Foreign & Defense Policy,Ideology/Single-Issue,Foreign Affairs
+J5300,Q04,Puerto Rico statehood policy,Foreign & Defense Policy,Ideology/Single-Issue,Foreign Affairs
+J5400,Q04,Pro-Arab,Foreign & Defense Policy,Ideology/Single-Issue,Foreign Affairs
+J6100,Q12,Anti-Guns,Gun Control,Ideology/Single-Issue,Social Issues
+J6200,Q13,Pro-Guns,Gun Rights,Ideology/Single-Issue,Social Issues
+J6500,Q10,Militias & Anti-Government Groups,Misc Issues,Ideology/Single-Issue,Social Issues
+J7000,Q09,Human Rights,Human Rights,Ideology/Single-Issue,Social Issues
+J7120,Q14,Abortion policy/Anti-Abortion,Abortion Policy/Anti-Abortion,Ideology/Single-Issue,Social Issues
+J7150,Q15,Abortion policy/Pro-Abortion Rights,Abortion Policy/Pro-Abortion Rights,Ideology/Single-Issue,Social Issues
+J7200,Q10,Elderly issues/Social Security,Misc Issues,Ideology/Single-Issue,Social Issues
+J7210,Q10,Legalization of Doctor-Assisted Suicide,Misc Issues,Ideology/Single-Issue,Social Issues
+J7300,Q09,Gay & lesbian rights & issues,Human Rights,Ideology/Single-Issue,Social Issues
+J7400,Q08,Women's issues,Women's Issues,Ideology/Single-Issue,Social Issues
+J7500,Q09,Minority/Ethnic Groups,Human Rights,Ideology/Single-Issue,Social Issues
+J7510,Q09,Native American Tribes,Human Rights,Ideology/Single-Issue,Tribal Affairs
+J7600,Q10,Animal Rights,Misc Issues,Ideology/Single-Issue,Social Issues
+J7700,Q09,Children's rights,Human Rights,Ideology/Single-Issue,Social Issues
+J8000,Q10,"Labor, anti-union",Misc Issues,Ideology/Single-Issue,Social Issues
+J9000,Q10,Other single-issue or ideological groups,Misc Issues,Ideology/Single-Issue,Social Issues
+J9100,Q10,Term limits,Misc Issues,Ideology/Single-Issue,Social Issues
+JD100,Q04,"Defense policy, hawks",Foreign & Defense Policy,Ideology/Single-Issue,Social Issues
+JD200,Q04,"Defense policy, doves",Foreign & Defense Policy,Ideology/Single-Issue,Social Issues
+JE300,Q11,Environmental policy,Environment,Ideology/Single-Issue,Social Issues
+JH100,Q09,Health & welfare policy,Human Rights,Ideology/Single-Issue,Social Issues
+JW100,Q10,Pro-resource development groups,Misc Issues,Ideology/Single-Issue,Social Issues
+K0000,K01,Legal Services,Lawyers/Law Firms,Lawyers & Lobbyists,
+K1000,K01,Attorneys & law firms,Lawyers/Law Firms,Lawyers & Lobbyists,
+K1100,K01,Trial lawyers & law firms,Lawyers/Law Firms,Lawyers & Lobbyists,
+K1200,K01,Corporate lawyers & law firms,Lawyers/Law Firms,Lawyers & Lobbyists,
+K2000,K02,Lobbyists & Public Relations,Lobbyists,Lawyers & Lobbyists,
+K2100,K02,Registered Foreign Agents,Lobbyists,Lawyers & Lobbyists,Foreign Affairs
+L0000,P05,Labor Unions,Misc Unions,Labor,Social Issues
+L1000,P04,Civil service & government unions,Public Sector Unions,Labor,Social Issues
+L1100,P04,Federal employees unions,Public Sector Unions,Labor,Social Issues
+L1200,P04,State & local govt employee unions,Public Sector Unions,Labor,Social Issues
+L1300,P04,Teachers unions,Public Sector Unions,Labor,Social Issues
+L1400,P04,Police & firefighters unions & associations,Public Sector Unions,Labor,Social Issues
+L1500,P04,US Postal Service unions & associations,Public Sector Unions,Labor,Social Issues
+L5000,P05,Other unions,Misc Unions,Labor,Social Issues
+LA100,P05,Agricultural labor unions,Misc Unions,Labor,"Social Issues, Agri-Food"
+LB100,P01,Building trades unions,Building Trade Unions,Labor,"Social Issues, Construction & Housing"
+LC100,P02,Communications & hi-tech unions,Industrial Unions,Labor,Social Issues
+LC150,P02,IBEW (Intl Brotherhood of Electrical Workers),Industrial Unions,Labor,"Social Issues, Utilities & Power"
+LD100,P05,Defense-related unions,Misc Unions,Labor,"Social Issues, Defense"
+LE100,P02,Mining unions,Industrial Unions,Labor,Social Issues
+LE200,P02,Energy-related unions (non-mining),Industrial Unions,Labor,"Social Issues, Utilities & Power"
+LG000,P05,General commercial unions,Misc Unions,Labor,Social Issues
+LG100,P05,Food service & related unions,Misc Unions,Labor,"Social Issues, Agri-Food, Hospitality & Retail"
+LG200,P05,Retail trade unions,Misc Unions,Labor,"Social Issues, Hospitality & Retail"
+LG300,P05,Commercial service unions,Misc Unions,Labor,Social Issues
+LG400,P05,Entertainment unions,Misc Unions,Labor,Social Issues
+LG500,P05,Other commercial unions,Misc Unions,Labor,Social Issues
+LH100,P05,Health worker unions,Misc Unions,Labor,"Social Issues, Healthcare"
+LM100,P02,Manufacturing unions,Industrial Unions,Labor,Social Issues
+LM150,P02,Automotive Manufacturing union,Industrial Unions,Labor,Social Issues
+LT000,P03,Transportation unions,Transportation Unions,Labor,Social Issues
+LT100,P03,Air transport unions,Transportation Unions,Labor,"Social Issues, Freight & Transport"
+LT300,P03,Teamsters union,Transportation Unions,Labor,"Social Issues, Freight & Transport"
+LT400,P03,Railroad unions,Transportation Unions,Labor,"Social Issues, Freight & Transport"
+LT500,P03,Merchant marine & longshoremen unions,Transportation Unions,Labor,"Social Issues, Freight & Transport"
+LT600,P03,Other transportation unions,Transportation Unions,Labor,"Social Issues, Freight & Transport"
+M0000,N15,Manufacturing,Misc Manufacturing & Distributing,Misc Business,Manufacturing
+M1000,N13,Chemicals,Chemical & Related Manufacturing,Misc Business,Manufacturing
+M1100,N13,Explosives,Chemical & Related Manufacturing,Misc Business,Manufacturing
+M1300,N13,Household cleansers & chemicals,Chemical & Related Manufacturing,Misc Business,Manufacturing
+M1400,N15,Manmade fibers,Misc Manufacturing & Distributing,Misc Business,Manufacturing
+M1500,N13,Plastics & Rubber processing & products,Chemical & Related Manufacturing,Misc Business,Manufacturing
+M1600,N13,"Paints, Solvents & Coatings",Chemical & Related Manufacturing,Misc Business,Manufacturing
+M1700,N13,Adhesives & Sealants,Chemical & Related Manufacturing,Misc Business,Manufacturing
+M2000,N15,Heavy industrial manufacturing,Misc Manufacturing & Distributing,Misc Business,Manufacturing
+M2100,N14,Steel,Steel Production,Misc Business,Manufacturing
+M2200,N15,Smelting & non-petroleum refining,Misc Manufacturing & Distributing,Misc Business,Manufacturing
+M2250,N15,Aluminum mining/processing,Misc Manufacturing & Distributing,Misc Business,Manufacturing
+M2300,N15,Industrial/commercial equipment & materials,Misc Manufacturing & Distributing,Misc Business,Manufacturing
+M2400,N15,"Recycling of metal, paper, plastics, etc.",Misc Manufacturing & Distributing,Misc Business,Manufacturing
+M3000,N15,Personal products manufacturing,Misc Manufacturing & Distributing,Misc Business,Manufacturing
+M3100,N15,Clothing & accessories,Misc Manufacturing & Distributing,Misc Business,Manufacturing
+M3200,N15,Shoes & leather products,Misc Manufacturing & Distributing,Misc Business,Manufacturing
+M3300,N15,Toiletries & cosmetics,Misc Manufacturing & Distributing,Misc Business,Manufacturing
+M3400,N15,Jewelry,Misc Manufacturing & Distributing,Misc Business,Manufacturing
+M3500,N15,Toys,Misc Manufacturing & Distributing,Misc Business,Manufacturing
+M3600,N15,Sporting goods sales & manufacturing,Misc Manufacturing & Distributing,Misc Business,Manufacturing
+M4000,N15,Household & office products,Misc Manufacturing & Distributing,Misc Business,Manufacturing
+M4100,N15,Furniture & wood products,Misc Manufacturing & Distributing,Misc Business,Manufacturing
+M4200,N15,Office machines,Misc Manufacturing & Distributing,Misc Business,Manufacturing
+M4300,N15,Household appliances,Misc Manufacturing & Distributing,Misc Business,Manufacturing
+M5000,N15,Fabricated metal products,Misc Manufacturing & Distributing,Misc Business,Manufacturing
+M5100,N15,Hardware & tools,Misc Manufacturing & Distributing,Misc Business,Manufacturing
+M5200,N15,"Electroplating, polishing & related services",Misc Manufacturing & Distributing,Misc Business,Manufacturing
+M5300,N15,Small arms & ammunition,Misc Manufacturing & Distributing,Misc Business,Manufacturing
+M6000,N15,Electrical lighting products,Misc Manufacturing & Distributing,Misc Business,Manufacturing
+M7000,N15,"Paper, glass & packaging materials",Misc Manufacturing & Distributing,Misc Business,Manufacturing
+M7100,N15,Paper packaging materials,Misc Manufacturing & Distributing,Misc Business,Manufacturing
+M7200,N15,Glass products,Misc Manufacturing & Distributing,Misc Business,Manufacturing
+M7300,N15,Metal cans & containers,Misc Manufacturing & Distributing,Misc Business,Manufacturing
+M8000,N16,Textiles & fabrics,Textiles,Misc Business,Manufacturing
+M9000,N15,Precision instruments,Misc Manufacturing & Distributing,Misc Business,Manufacturing
+M9100,N15,Optical instruments & lenses,Misc Manufacturing & Distributing,Misc Business,Manufacturing
+M9200,N15,Photographic equipment & supplies,Misc Manufacturing & Distributing,Misc Business,Manufacturing
+M9300,N15,Clocks & watches,Misc Manufacturing & Distributing,Misc Business,Manufacturing
+T0000,M06,Transportation,Misc Transport,Transportation,Freight & Transport
+T1000,M01,Air transport,Air Transport,Transportation,Freight & Transport
+T1100,M01,Airlines,Air Transport,Transportation,Freight & Transport
+T1200,M01,Aircraft manufacturers,Air Transport,Transportation,Freight & Transport
+T1300,M01,Aircraft parts & equipment,Air Transport,Transportation,Freight & Transport
+T1400,M01,General aviation (private pilots),Air Transport,Transportation,Freight & Transport
+T1500,M01,Air freight,Air Transport,Transportation,Freight & Transport
+T1600,M01,Aviation services & airports,Air Transport,Transportation,Freight & Transport
+T1700,M01,Space vehicles & components,Air Transport,Transportation,Freight & Transport
+T2000,M02,"Automotive, Misc",Automotive,Transportation,Automotive
+T2100,M02,Auto manufacturers,Automotive,Transportation,Automotive
+T2200,M02,Truck/Automotive parts & accessories,Automotive,Transportation,Automotive
+T2300,M02,"Auto dealers, new & used",Automotive,Transportation,Automotive
+T2310,M02,"Auto dealers, foreign imports",Automotive,Transportation,Automotive
+T2400,M02,Auto repair,Automotive,Transportation,Automotive
+T2500,M02,Car rental agencies,Automotive,Transportation,Automotive
+T3000,M03,Trucking,Trucking,Transportation,Freight & Transport
+T3100,M03,Trucking companies & services,Trucking,Transportation,Freight & Transport
+T3200,M03,Truck & trailer manufacturers,Trucking,Transportation,Freight & Transport
+T4000,M06,Buses & Taxis,Misc Transport,Transportation,Freight & Transport
+T4100,M06,Bus services,Misc Transport,Transportation,Freight & Transport
+T4200,M06,Taxicabs,Misc Transport,Transportation,Freight & Transport
+T5000,M04,Railroad transportation,Railroads,Transportation,Freight & Transport
+T5100,M04,Railroads,Railroads,Transportation,Freight & Transport
+T5200,M04,Manufacturers of railroad equipment,Railroads,Transportation,Freight & Transport
+T5300,M04,Railroad services,Railroads,Transportation,Freight & Transport
+T6000,M05,Sea transport,Sea Transport,Transportation,Freight & Transport
+T6100,M05,Ship building & repair,Sea Transport,Transportation,Freight & Transport
+T6200,M05,Sea freight & passenger services,Sea Transport,Transportation,Freight & Transport
+T6250,M05,Cruise ships & lines,Sea Transport,Transportation,Freight & Transport
+T7000,M06,Freight & delivery services,Misc Transport,Transportation,Freight & Transport
+T7100,M01,Express delivery services,Air Transport,Transportation,Freight & Transport
+T7200,N12,Warehousing,Misc Business,Misc Business,Freight & Transport
+T8000,M06,Recreational transport,Misc Transport,Transportation,Freight & Transport
+T8100,M06,"Motorcycles, snowmobiles & other motorized vehicle",Misc Transport,Transportation,Freight & Transport
+T8200,M06,Motor homes & camper trailers,Misc Transport,Transportation,Freight & Transport
+T8300,M06,Pleasure boats,Misc Transport,Transportation,Freight & Transport
+T8400,M06,Bicycles & other non-motorized recreational transp,Misc Transport,Transportation,Freight & Transport
+T9000,N08,Lodging & tourism,Lodging/Tourism,Misc Business,Hospitality & Retail
+T9100,N08,Hotels & motels,Lodging/Tourism,Misc Business,Hospitality & Retail
+T9300,N08,Resorts,Lodging/Tourism,Misc Business,Hospitality & Retail
+T9400,N08,Travel agents,Lodging/Tourism,Misc Business,Hospitality & Retail
+X0000,W07,Other,Other,Other,
+X1200,W06,Retired,Retired,Other,
+X3000,W03,Civil servant/public employee,Civil Servants/Public Officials,Other,
+X3100,W03,Public official (elected or appointed),Civil Servants/Public Officials,Other,
+X3200,W03,Courts & Justice System,Civil Servants/Public Officials,Other,
+X3300,W03,Municipal & county government organizations,Civil Servants/Public Officials,Other,
+X3500,W04,"Public school teachers, administrators & officials",Education,Other,
+X3700,W03,US Postal Service,Civil Servants/Public Officials,Other,
+X4000,W02,Non-Profits,Non-Profit Institutions,Other,
+X4100,W02,Non-profit foundations,Non-Profit Institutions,Other,
+X4110,W02,Philanthropists,Non-Profit Institutions,Other,
+X4200,W02,"Museums, art galleries, libraries, etc.",Non-Profit Institutions,Other,
+X5000,W07,Military,Other,Other,
+X7000,W05,"Churches, clergy & religious organizations",Clergy & Religious Organizations,Other,
+X8000,W07,International Organizations,Other,Other,
+X9000,W07,Foreign Governments,Other,Other,Foreign Affairs
+Y0000,Y00,Unknown,Unknown,Unknown,
+Y1000,Y01,"Homemakers, students & other non-income earners",Homemakers/Non-income earners,Unknown,
+Y2000,Y02,No employer listed or discovered,No Employer Listed or Found,Unknown,
+Y3000,Y03,Generic occupation - impossible to assign category,Generic Occupation/Category Unknown,Unknown,
+Y4000,Y04,Employer listed but category unknown,Employer Listed/Category Unknown,Unknown,
+Z1000,Q16,Candidate Committees,Candidate Committees,Ideology/Single-Issue,
+Z1100,Q16,Republican Candidate Committees,Candidate Committees,Ideology/Single-Issue,
+Z1200,Q16,Democratic Candidate Committees,Candidate Committees,Ideology/Single-Issue,
+Z1300,Q16,Third-Party Candidate Committees,Candidate Committees,Ideology/Single-Issue,
+Z1400,Q16,Unknown-Party Candidate Committees,Candidate Committees,Ideology/Single-Issue,
+Z4100,Z04,Republican Joint Candidate Committee,Joint Candidate Cmte,Joint Candidate Cmtes,
+Z4200,Z04,Democratic Joint Candidate Committee,Joint Candidate Cmte,Joint Candidate Cmtes,
+Z4300,Z04,Third-Party Joint Candidate Committee,Joint Candidate Cmte,Joint Candidate Cmtes,
+Z4400,Z04,Liberal Non-party Joint Fundraising Committee,Joint Candidate Cmte,Joint Candidate Cmtes,
+Z4500,Z04,Conservative Non-party Joint Fundraising Committee,Joint Candidate Cmte,Joint Candidate Cmtes,
+Z5000,Z02,Party Committees,Party Committees,Party Cmte,
+Z5100,Z02,Republican Party Committees,Party Committees,Party Cmte,
+Z5200,Z02,Democratic Party Committees,Party Committees,Party Cmte,
+Z5300,Z02,Third-Party Party Committees,Party Committees,Party Cmte,
+Z9000,Z07,Candidate contribution to his/her own campaign,Candidate Self-finance,Candidate,
+Z9100,Z08,Transfer between national party committees,Party Committee Transfer,Non-contribution,
+Z9500,Z09,Transfer from intermediary (type 24I or 24T),Non-contribution,Non-contribution,
+Z9600,Z09,"Non-Contribution, Miscellaneous",Non-contribution,Non-contribution,
+Z9700,Z09,Unitemized (small) contributions,Non-contribution,Non-contribution,
+Z9800,Z09,Public Funding,Non-contribution,Non-contribution,
+Z9999,Z09,Internal Transfer and other non-contributions,Non-contribution,Non-contribution,
