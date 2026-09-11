@@ -61,6 +61,10 @@ RECEIVE_EXTRACTS = EXTRACTS
 # attribute nothing.
 COMMITTEE_NEWSLETTER_MAP = REPO_ROOT / "congress_cmte_crosswalk.csv"
 
+# Which committees matter to a channel, and how much -- the reviewed ranking. The
+# crosswalk decides where a dollar is counted; this decides whose seat is worth naming.
+COMMITTEE_RANKS = REPO_ROOT / "newsletter_committee_ranks.csv"
+
 # --- Transaction direction (OTH file only) --------------------------------------------
 # The OTH file is bidirectional: TRANSACTION_TP decides whether the filer sent or received.
 # Both parties file, so the same dollar appears twice -- normalising to (sender, recip)
@@ -179,6 +183,22 @@ SEND_QUARTER_END = "2026Q2"
 
 RECEIVE_QUARTER_START = "2025Q1"
 RECEIVE_QUARTER_END = "2026Q2"
+
+# --- Default build period -------------------------------------------------------------
+# Monthly is the default build mode: an edition is read monthly, and a quarter is three
+# months of hindsight by the time it closes. A tool given no --period builds this one.
+#
+# Derived from the window above rather than written out again, so the window moves in ONE
+# place. It is deliberately the last COMPLETE month of that window and not "the latest
+# month with any data": the extracts carry a thin tail past the window -- 57 transactions
+# in 2026-07 and a single one in 2026-11 -- and chasing the maximum date would build a
+# near-empty edition that looks like a collapse in giving.
+def _last_month_of_quarter(q: str) -> str:
+    year, quarter = int(q[:4]), int(q[-1])
+    return f"{year}-{3 * quarter:02d}"
+
+
+DEFAULT_PERIOD = _last_month_of_quarter(RECEIVE_QUARTER_END)
 
 # --- Expected results -----------------------------------------------------------------
 # Measured by verified runs. The runners warn on material divergence; treat a mismatch as a

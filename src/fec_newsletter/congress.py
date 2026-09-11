@@ -10,6 +10,11 @@ The join is three hops, and each one loses rows:
     bioguide     ->  subcommittee code via c_github_committee_membership_current
     subcommittee ->  newsletter(s)     via congress_cmte_crosswalk.csv
 
+The crosswalk's newsletter labels are hand-authored, originally in
+https://docs.google.com/spreadsheets/d/1mq0-IUKbm7TmbmuXfyOoaxVSBCdYWSZXqYF-NBY4hHQ/edit?gid=28307445
+(Bella's work). `tools/audit_crosswalk.py` re-derives which of those labels deserve a
+second look, and prices each one by the money that rests on it alone.
+
 Attribution is at **subcommittee** level: "Cybersecurity and Infrastructure Protection"
 is a far sharper industry signal than "House Homeland Security". The subcommittee code is
 the parent's thomas_id plus the zero-padded subcommittee id (HSAG + "15" -> HSAG15), which
@@ -81,15 +86,24 @@ LABEL_ALIASES: dict[str, tuple[str, ...]] = {
 # rather than replacing them.
 FOREIGN_AFFAIRS_COMMITTEES = frozenset({"HSFA", "SSFR"})
 
+# A committee whose jurisdiction is purely procedural -- the ethics committees, Printing,
+# the Library -- has no industry to attribute to, and that is a decision rather than an
+# omission. Writing this sentinel in the newsletters column records the decision, so a
+# blank cell means "not yet looked at" and nothing else.
+NO_MAPPING = frozenset({"none"})
+
 MAPPING_COLUMNS = [
-    "name", "url", "thomas_id", "youtube_id", "jurisdiction_source",
-    "subcommittee_name", "subcommittee_thomas_id", "newsletters", "notes",
+    "name", "thomas_id", "jurisdiction_source", "subcommittee_name",
+    "subcommittee_thomas_id", "newsletters", "notes",
 ]
 
 
+def _label_key(label: str) -> str:
+    return re.sub(r"[^a-z0-9]", "", label.lower())
+
+
 def _normalise_label(label: str) -> tuple[str, ...]:
-    key = re.sub(r"[^a-z0-9]", "", label.lower())
-    return LABEL_ALIASES.get(key, ())
+    return LABEL_ALIASES.get(_label_key(label), ())
 
 
 def parse_newsletters(raw: str, committee: str = "") -> list[str]:
@@ -114,7 +128,7 @@ def unknown_labels(mapping: pd.DataFrame | None = None) -> set[str]:
     for raw in mapping["newsletters"]:
         for part in LABEL_SEP.split(raw or ""):
             part = part.strip()
-            if part and not _normalise_label(part):
+            if part and not _normalise_label(part) and _label_key(part) not in NO_MAPPING:
                 seen.add(part)
     return seen
 
@@ -122,52 +136,145 @@ def unknown_labels(mapping: pd.DataFrame | None = None) -> set[str]:
 def load_mapping() -> pd.DataFrame:
     """The authored subcommittee -> newsletter crosswalk.
 
-    The file's header names only 7 of its 9 columns (the newsletter and notes columns are
-    unnamed), so the header row is skipped and the columns named positionally.
+    Read by header name, not by position: the file is hand-edited in a spreadsheet, and a
+    positional read turns a reordered or inserted column into silently wrong labels rather
+    than an error. A missing expected column is an error; extra columns are ignored.
     """
     path = config.COMMITTEE_NEWSLETTER_MAP
     if not path.exists():
         raise FileNotFoundError(f"committee->newsletter mapping not found at {path}")
-    df = pd.read_csv(path, dtype=str, keep_default_na=False, header=None, skiprows=1)
-    if df.shape[1] < len(MAPPING_COLUMNS):
-        for i in range(df.shape[1], len(MAPPING_COLUMNS)):
-            df[i] = ""
-    df = df.iloc[:, : len(MAPPING_COLUMNS)]
-    df.columns = MAPPING_COLUMNS
-    return df
+    df = pd.read_csv(path, dtype=str, keep_default_na=False)
+    missing = [c for c in MAPPING_COLUMNS if c not in df.columns]
+    if missing:
+        raise ValueError(f"{path.name} is missing column(s): {', '.join(missing)}")
+    return df[MAPPING_COLUMNS]
 
 
 def committee_newsletters(mapping: pd.DataFrame | None = None) -> pd.DataFrame:
-    """(code, level, newsletter) for every mapped subcommittee, plus a derived top-level row.
+    """(code, level, newsletter) for every mapped subcommittee, plus a top-level row.
 
     The top-level rows are the fallback for a member who sits on a committee but holds no
-    mapped subcommittee seat there (17 members today): they receive the UNION of that
-    committee's subcommittee newsletters. Derived from the same file rather than
-    hand-written, so there is one authorship and one source of truth. Committees with no
-    subcommittee rows at all (Indian Affairs, Veterans' Affairs, Senate Intelligence,
-    Small Business, the joint committees) produce no rows and attribute nothing.
+    mapped subcommittee seat there: they receive the UNION of that committee's subcommittee
+    newsletters, derived from the same file rather than hand-written, so there is one
+    authorship and one source of truth.
+
+    A committee with no subcommittees of its own -- the budget committees, Senate
+    Intelligence, the joint committees -- has nothing to derive from, so its label is
+    authored directly on the row whose subcommittee columns are blank. An authored label
+    REPLACES the derived union rather than adding to it: it is a deliberate statement about
+    the whole committee, and a reader comparing the file to the output should not have to
+    union two things in their head to predict it.
+
+    A top-level label is far more leveraged than a subcommittee one -- every member of the
+    committee receives it, with no sharper seat to outrank it -- so these are kept to one or
+    two newsletters. Rows carrying the NO_MAPPING sentinel produce nothing, on purpose.
     """
     mapping = load_mapping() if mapping is None else mapping
-    sub = mapping[mapping["subcommittee_thomas_id"].str.strip() != ""].copy()
+    is_sub = mapping["subcommittee_thomas_id"].str.strip() != ""
 
     rows = []
-    for _, r in sub.iterrows():
+    for _, r in mapping[is_sub].iterrows():
         code = r["thomas_id"].strip() + r["subcommittee_thomas_id"].strip().zfill(2)
         for nl in parse_newsletters(r["newsletters"], r["thomas_id"].strip()):
             rows.append({"code": code, "committee": r["thomas_id"].strip(),
                          "level": "subcommittee", "newsletter": nl})
-    detail = pd.DataFrame(rows)
-    if detail.empty:
-        return detail
+    detail = pd.DataFrame(rows, columns=["code", "committee", "level", "newsletter"])
 
-    top = (
-        detail[["committee", "newsletter"]].drop_duplicates()
-        .rename(columns={"committee": "code"})
-        .assign(committee=lambda d: d["code"], level="committee")
+    authored = {}
+    for _, r in mapping[~is_sub].iterrows():
+        code = r["thomas_id"].strip()
+        nls = parse_newsletters(r["newsletters"], code)
+        if nls:
+            authored[code] = nls
+
+    top = [{"code": c, "committee": c, "level": "committee", "newsletter": nl}
+           for c, nls in authored.items() for nl in nls]
+    derived = detail[~detail["committee"].isin(authored)][["committee", "newsletter"]]
+    top.extend(
+        {"code": c, "committee": c, "level": "committee", "newsletter": nl}
+        for c, nl in derived.drop_duplicates().itertuples(index=False)
     )
-    return pd.concat([detail, top], ignore_index=True).drop_duplicates(
-        ["code", "level", "newsletter"]
-    )
+    if detail.empty and not top:
+        return detail
+    return pd.concat(
+        [detail, pd.DataFrame(top, columns=detail.columns)], ignore_index=True
+    ).drop_duplicates(["code", "level", "newsletter"])
+
+
+def committee_ranks(newsletter: str) -> dict[str, int]:
+    """code -> this newsletter's policy rank for it, 1 being the most central.
+
+    The crosswalk says which committees a channel attributes money THROUGH. This says how
+    much each of them matters to it, which is a different question and a hand-reviewed
+    answer. A code missing from this file was judged not to belong to the channel at all,
+    so its absence is a decision rather than a gap.
+    """
+    path = config.COMMITTEE_RANKS
+    if not path.exists():
+        raise FileNotFoundError(
+            f"committee ranking not found at {path} -- run tools/build_category_ranks.py")
+    df = pd.read_csv(path, dtype=str, keep_default_na=False)
+    df = df[df["newsletter"] == newsletter]
+    return {c: int(r) for c, r in zip(df["code"], df["rank"])}
+
+
+def member_importance(membership: pd.DataFrame, newsletter: str) -> pd.DataFrame:
+    """(bioguide, importance, seats, best_rank, best_seniority) -- how much a member
+    matters to a channel.
+
+    Each seat contributes the PRODUCT of two linear weights, and the seats are summed:
+
+        seat weight = (N - committee_rank + 1)/N  x  (M - seniority_rank + 1)/M
+
+    * committee_rank is the channel's own ranking of that committee, 1..N -- how much the
+      committee matters to this policy area.
+    * seniority_rank is the member's standing ON that committee, 1..M, from the source's
+      own order. It runs separately down each party, so rank 1 is both the chair and the
+      ranking member, and both are weighted as the top of their side.
+
+    Multiplying is what makes the two questions one number: a junior seat on the channel's
+    first-ranked committee and a chair's seat on its last both come out small, and a chair
+    of the first-ranked committee comes out large. SUMMING the seats then makes seat COUNT
+    count too, so sitting on four of a channel's committees beats sitting on one without a
+    third knob to tune.
+
+    Linear decay on both, not 1/rank: 1/rank makes rank 2 worth half of rank 1, which
+    swamps every other seat a member holds.
+
+    `relevance` is the same figure indexed 0-100 against the most relevant member of this
+    channel, and it is the one to PRINT. The raw sum has no usable ceiling: each seat adds
+    at most 1.0, so the theoretical maximum is the channel's committee count -- 28 for
+    Defense -- while no real member passes 3. A reader shown "2.47" cannot tell whether
+    that is exceptional, and the raw figure is not comparable between channels either,
+    because a 7-committee channel cannot reach what a 27-committee one can. Indexing fixes
+    both. Rankings are untouched: dividing a channel by its own maximum is monotonic.
+
+    A member with no ranked seat scores 0, and that zero is a finding rather than a missing
+    value: every committee they sit on was judged outside this channel. Callers ranking by
+    importance should drop them rather than treat the zero as unknown.
+    """
+    ranks = committee_ranks(newsletter)
+    n = len(ranks)
+    cols = ["bioguide", "importance", "relevance", "seats", "best_rank", "best_seniority"]
+    if not n:
+        return pd.DataFrame(columns=cols)
+    m = current_memberships(membership)
+    m = m[m["committee"].isin(ranks)].copy()
+    m["cmte_rank"] = m["committee"].map(ranks)
+    # Seniority is scaled against the DEPTH OF THAT COMMITTEE's own list: rank 5 of 36 is
+    # a senior seat and rank 5 of 6 is a junior one, and a fixed divisor would call them
+    # the same thing.
+    seniority = pd.to_numeric(m["rank"], errors="coerce").fillna(1)
+    depth = seniority.groupby(m["committee"]).transform("max").clip(lower=1)
+    m["weight"] = ((n - m["cmte_rank"] + 1) / n) * ((depth - seniority + 1) / depth)
+    m["seniority"] = seniority
+    out = m.groupby("bioguide").agg(
+        importance=("weight", "sum"), seats=("committee", "nunique"),
+        best_rank=("cmte_rank", "min"), best_seniority=("seniority", "min")).reset_index()
+    # Indexed against this channel's own top member, so 100 is always someone real.
+    top = out["importance"].max()
+    out["relevance"] = (100 * out["importance"] / top).round().astype(int) if top else 0
+    return out[cols]
 
 
 def fec_id_map(legislators: pd.DataFrame) -> pd.DataFrame:

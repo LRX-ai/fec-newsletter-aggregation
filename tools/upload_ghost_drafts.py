@@ -20,18 +20,36 @@ import argparse, datetime, json, os, pathlib, sys
 import jwt, requests
 from dotenv import load_dotenv
 
+REPO = pathlib.Path(__file__).resolve().parents[1]
 LOBBY = pathlib.Path.home() / "Projects" / "lobby-landscapes-us"
-SRC = pathlib.Path(__file__).resolve().parents[1] / "out" / "ghost"
+sys.path.insert(0, str(REPO / "src")); sys.path.insert(0, str(REPO / "tools"))
+from fec_newsletter import config  # noqa: E402
+from edition_ui import edition_path  # noqa: E402  (the one place a filename is formed)
+from periods import period_label  # noqa: E402
 
-POSTS = [
-    ("Finance_and_Insurance_SEND.html",
-     "[DRAFT] FEC pipeline — Finance & Insurance, money SENT (2026 Q2)"),
-    ("Finance_and_Insurance_RECEIVE.html",
-     "[DRAFT] FEC pipeline — Finance & Insurance, money RECEIVED (2026 Q2)"),
-]
-# Leading "#" makes a Ghost tag internal: usable for filtering in admin, never
-# rendered publicly and never given a public tag page.
-TAGS = [{"name": "#fec-pipeline-draft"}, {"name": "#2026_Q2"}, {"name": "#no-hero"}]
+SIDE_WORD = {"SEND": "SENT", "RECEIVE": "RECEIVED"}
+
+
+def posts_for(channel: str, period: str, sides):
+    """(path, title) per edition to upload, derived from channel and period.
+
+    Nothing here is spelled out. This file used to carry two literal filenames and a
+    literal quarter, so it kept uploading one stale channel long after the builder could
+    produce any channel and any month -- and it did so silently, because the stale file
+    was still sitting in out/ghost.
+    """
+    return [(edition_path(channel, period, side),
+             f"[DRAFT] FEC pipeline — {channel}, money {SIDE_WORD[side]} "
+             f"({period_label(period)})")
+            for side in sides]
+
+
+def tags_for(period: str):
+    """Leading "#" makes a Ghost tag internal: usable for filtering in admin, never
+    rendered publicly and never given a public tag page."""
+    return [{"name": "#fec-pipeline-draft"},
+            {"name": "#" + period_label(period).replace(" ", "_")},
+            {"name": "#no-hero"}]
 
 
 def token(admin_key: str) -> str:
@@ -46,9 +64,20 @@ def token(admin_key: str) -> str:
 
 def main() -> int:
     ap = argparse.ArgumentParser()
+    ap.add_argument("--channel", default="Finance & Insurance")
+    ap.add_argument("--period", default=config.DEFAULT_PERIOD,
+                    help=f"a month (2026-06) or a quarter (2026Q2); "
+                         f"default {config.DEFAULT_PERIOD}")
+    ap.add_argument("--only", choices=["send", "receive", "both"], default="both",
+                    help="which edition to upload (default both)")
     ap.add_argument("--dry-run", action="store_true",
                     help="show exactly what would be posted; make no request")
     args = ap.parse_args()
+
+    sides = {"send": ["SEND"], "receive": ["RECEIVE"],
+             "both": ["SEND", "RECEIVE"]}[args.only]
+    posts = posts_for(args.channel, args.period, sides)
+    tags = tags_for(args.period)
 
     load_dotenv(LOBBY / ".env")
     domain = (os.getenv("GHOST_ADMIN_DOMAIN") or "").rstrip("/")
@@ -58,13 +87,15 @@ def main() -> int:
         return 1
 
     print(f"Ghost site : {domain}")
+    print(f"Edition    : {args.channel} — {period_label(args.period)}")
     print(f"Status     : draft (never published — Ghost sends no email)")
-    print(f"Tags       : {', '.join(t['name'] for t in TAGS)}  (all internal)\n")
+    print(f"Tags       : {', '.join(t['name'] for t in tags)}  (all internal)\n")
 
-    for fname, title in POSTS:
-        path = SRC / fname
+    for path, title in posts:
         if not path.exists():
             print(f"  MISSING {path}", file=sys.stderr)
+            print(f"  build it first: python tools/build_edition.py "
+                  f'--channel "{args.channel}" --period {args.period}', file=sys.stderr)
             return 1
         body = path.read_text(encoding="utf-8")
         print(f"  {title}\n     from {path.name} ({len(body):,} bytes)")
@@ -73,7 +104,7 @@ def main() -> int:
         resp = requests.post(
             f"{domain}/ghost/api/admin/posts/?source=html",
             json={"posts": [{"title": title, "html": body,
-                             "tags": TAGS, "status": "draft"}]},
+                             "tags": tags, "status": "draft"}]},
             headers={"Authorization": f"Ghost {token(admin_key)}",
                      "Accept": "application/json",
                      "Content-Type": "application/json"},

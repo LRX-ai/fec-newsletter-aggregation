@@ -9,12 +9,14 @@ is free in the next. Run with --show to print what it produced for review; the
 filings do not state, which is exactly the set a human should read before publish.
 """
 from __future__ import annotations
-import argparse, json, sys
+import argparse, json, re, sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "tools"))
 import pandas as pd
-from fec_newsletter import config, congress, describe, extract, pipelines
+from periods import period_mask, period_label
+from fec_newsletter import common, config, congress, describe, extract, pipelines, sources
 
 
 MAX_TIED_SHOWN = 3   # list every tied top recipient up to this many, else just one
@@ -39,7 +41,8 @@ def prettify(name: str) -> str:
 
 
 def principal_recipients(sub: pd.DataFrame, self_id: str | None = None,
-                         max_tied: int = MAX_TIED_SHOWN) -> tuple[str, int]:
+                         max_tied: int = MAX_TIED_SHOWN,
+                         already_named: bool = False) -> tuple[str, int]:
     """(principal recipient label, distinct recipient count).
 
     Ties are common and not noise: FEC contribution limits push many recipients to
@@ -67,7 +70,9 @@ def principal_recipients(sub: pd.DataFrame, self_id: str | None = None,
     tied = [(cid, name) for (cid, name), v in g.items() if v == top]
     pct = 100 * top / total if total else 0
     share = "<1%" if 0 < pct < 1 else f"{pct:.0f}%"
-    label = lambda cid, n: (prettify(n)
+    # A caller that has already formatted a person's name passes already_named, so
+    # prettify does not re-title-case "(R-TX)" into "(R-Tx)".
+    label = lambda cid, n: ((str(n) if already_named else prettify(n))
                             + (" (itself)" if self_id and cid == self_id else "")
                             + f" {share}")
     if len(tied) <= max_tied:
@@ -90,10 +95,49 @@ def principal_counterparty(sub: pd.DataFrame, self_id: str | None = None):
     return g
 
 
+NAME_DROP = {"JR", "SR", "II", "III", "IV", "V", "MR", "MRS", "MS", "DR",
+             "SEN", "REP", "HON", "SENATOR", "CONGRESSMAN", "CONGRESSWOMAN"}
+
+
+def _person(name: str) -> str:
+    """FEC files a name as "PLATNER, GRAHAM"; a newspaper prints "Graham Platner"."""
+    name = re.sub(r'"[^"]*"', " ", str(name))
+    if "," in name:
+        last, first = name.split(",", 1)
+        parts = [w for w in first.replace(".", " ").split() if w.upper() not in NAME_DROP]
+        name = " ".join(parts + [last.strip()])
+    return " ".join(w for w in name.title().split() if w.upper() not in NAME_DROP)
+
+
+def _seat(cand) -> str:
+    """A Senate race is statewide. Its district field is "00", which reads to a model
+    as a zeroth district and comes back as "Maine's 0th District"."""
+    if str(cand["CAND_OFFICE"]) == "S":
+        return f'{cand["CAND_OFFICE_ST"]} (Senate)'
+    d = str(cand["CAND_OFFICE_DISTRICT"] or "").strip()
+    return f'{cand["CAND_OFFICE_ST"]}-{d.zfill(2)}' if d and d != "nan" else str(cand["CAND_OFFICE_ST"])
+
+
+def _all_transactions(data, period):
+    """Every deduped transaction for one period, keyed to the candidate it names.
+
+    The receive pipeline cannot be reused here: it drops exactly the candidates this
+    section exists to cover, because they hold no committee seat.
+    """
+    cov = common.Coverage()
+    t = sources.dedupe(pd.concat([sources.from_oth(data["oth"], cov),
+                                  sources.from_pas2(data["pas2"], cov)], ignore_index=True), cov)
+    t = common.add_quarter(t, cov, config.SEND_QUARTER_START, config.SEND_QUARTER_END)
+    t["cand"] = t["recip_cand_id"].fillna(t["recip_id"])
+    return t[period_mask(t, period)]
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--channel", default="Finance & Insurance")
-    ap.add_argument("--quarter", default="2026Q2")
+    ap.add_argument("--period", "--quarter", dest="period", default=config.DEFAULT_PERIOD,
+                    help=f"a month (2026-06) or a quarter (2026Q2); "
+                         f"default {config.DEFAULT_PERIOD}")
     ap.add_argument("--show", action="store_true")
     ap.add_argument("--dry-run", action="store_true", help="build facts, make no API call")
     args = ap.parse_args()
@@ -110,8 +154,8 @@ def main() -> int:
     cn = congress.committee_newsletters()
     chan_codes = set(cn[cn["newsletter"] == args.channel]["code"])
 
-    s = send[(send["newsletter"] == args.channel) & (send["quarter"].astype(str) == args.quarter)]
-    r = recv[(recv["newsletter"] == args.channel) & (recv["quarter"].astype(str) == args.quarter)]
+    s = send[(send["newsletter"] == args.channel) & period_mask(send, args.period)]
+    r = recv[(recv["newsletter"] == args.channel) & period_mask(recv, args.period)]
     clean = r[(r["support_oppose"] == "support") & (~r["flow_type"].isin(["loan", "loan_repayment"]))]
     name2id = cm.drop_duplicates("CMTE_NM").set_index("CMTE_NM")["CMTE_ID"]
     items = []
@@ -124,12 +168,13 @@ def main() -> int:
         if g.empty:
             continue
         rid = name2id.get(g.index[0], sub.loc[sub["counterparty_name"] == g.index[0], "counterparty_id"].iloc[0])
-        beh = {"recipients_this_quarter": int(sub["counterparty_name"].nunique()),
+        beh = {"period_this_edition_covers": period_label(args.period),
+               "recipients_this_period": int(sub["counterparty_name"].nunique()),
                "share_to_largest_recipient": f"{g.iloc[0] / tot * 100:.0f}%",
                "flow_types": sorted(sub["flow_type"].unique())}
         if sub["counterparty_name"].nunique() <= 5:
-            beh["every_recipient_this_quarter"] = [str(k) for k in g.index]
-        items.append({"key": f"send|{sender}|{g.index[0]}",
+            beh["every_recipient_this_period"] = [str(k) for k in g.index]
+        items.append({"key": f"send|{args.period}|{sender}|{g.index[0]}",
                       "facts": describe.pair_facts(sid, rid, cm, xw, beh)})
 
     # ---- RECEIVE section A: principal backer -> member ---------------------------
@@ -172,7 +217,65 @@ def main() -> int:
         aff = describe.affiliates(bid, cm)
         if aff:
             facts["backer"]["affiliated_committees_per_filings"] = aff
-        items.append({"key": f"recv|{g.index[0]}|{member}", "facts": facts})
+        items.append({"key": f"recv|{args.period}|{g.index[0]}|{member}", "facts": facts})
+
+    # ---- RECEIVE section B: the races those seats sit in -------------------------
+    # Contenders sit on no committee, so the receive pipeline drops them and their money
+    # is reported only in this section. Derived from the seats of the members ranked
+    # above rather than transcribed, so next quarter's races regenerate with everything
+    # else -- the previous set of race sentences had no generator at all and silently
+    # survived a prompt change.
+    races = pd.read_csv(config.CACHE_DIR / "candidate_races.csv", dtype=str)
+    races = races.sort_values("CAND_ELECTION_YR").drop_duplicates("CAND_ID", keep="last")
+    fecmap = congress.fec_id_map(data["legislators"])
+    txns = _all_transactions(data, args.period)
+    cmte_name = cm.drop_duplicates("CMTE_ID").set_index("CMTE_ID")["CMTE_NM"]
+
+    ranked = clean.groupby("attributed_label")["amount"].sum().sort_values(ascending=False).head(5)
+    seen = set()
+    for member in ranked.index:
+        bg = clean.loc[clean["attributed_label"] == member, "bioguide"].iloc[0]
+        mine = set(fecmap.loc[fecmap["bioguide"] == bg, "cand_id"])
+        seat_rows = races[races["CAND_ID"].isin(mine)]
+        if seat_rows.empty:
+            continue
+        seat = seat_rows.iloc[0]
+        contenders = races[(races["CAND_OFFICE"] == seat["CAND_OFFICE"])
+                           & (races["CAND_OFFICE_ST"] == seat["CAND_OFFICE_ST"])
+                           & (races["CAND_OFFICE_DISTRICT"].fillna("") == (seat["CAND_OFFICE_DISTRICT"] or ""))
+                           & (~races["CAND_ID"].isin(mine))]
+        for _, cand in contenders.iterrows():
+            sub = txns[txns["cand"] == cand["CAND_ID"]]
+            if sub.empty or cand["CAND_ID"] in seen:
+                continue
+            seen.add(cand["CAND_ID"])
+            sup = sub[sub["support_oppose"] == "support"].groupby("sender_id")["amount"].sum().sort_values(ascending=False)
+            opp = sub[sub["support_oppose"] == "oppose"].groupby("sender_id")["amount"].sum().sort_values(ascending=False)
+            if not len(sup) and not len(opp):
+                continue
+            repaid = sub.loc[sub["flow_type"] == "loan_repayment", "amount"].sum()
+            who = _person(str(cand["CAND_NAME"]))
+            facts = {"the_contender": {
+                        "name": who,
+                        "party": str(cand["CAND_PTY_AFFILIATION"] or "")[:3],
+                        "seat": _seat(cand),
+                        "fec_incumbency_flag": {"I": "incumbent", "C": "challenger",
+                                                "O": "open seat"}.get(str(cand["CAND_ICI"]), "unknown"),
+                        "campaign_repaid_this_much_to_the_candidate_himself":
+                            f"${repaid:,.0f} (a loan the candidate had made to his own campaign)"
+                            if repaid else "none"}}
+            if len(sup):
+                facts["largest_committee_SUPPORTING_them"] = dict(
+                    describe.committee_facts(sup.index[0], cm, xw),
+                    amount=f"${sup.iloc[0]:,.0f}", total_support=f"${sup.sum():,.0f}")
+            if len(opp):
+                facts["largest_committee_SPENDING_AGAINST_them"] = dict(
+                    describe.committee_facts(opp.index[0], cm, xw),
+                    amount=f"${opp.iloc[0]:,.0f}", total_opposition=f"${opp.sum():,.0f}")
+            else:
+                facts["opposition"] = "no committee spent against this candidate this quarter"
+            items.append({"key": f"race|{args.period}|{_seat(cand)}|{who}",
+                          "facts": facts})
 
     # Recipient breakdowns for the send table, computed rather than transcribed.
     breakdowns = {}

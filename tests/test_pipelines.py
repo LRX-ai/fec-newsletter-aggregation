@@ -437,19 +437,60 @@ def test_top_level_fallback_applies_without_a_subcommittee_seat():
     assert w["weight"].sum() == pytest.approx(1.0)
 
 
-def test_committees_with_no_subcommittee_rows_attribute_nothing():
-    """Indian Affairs, Veterans' Affairs, Senate Intelligence etc. have no mapping rows.
+def _one_seat(bioguide: str, cand_id: str, committee: str, chamber: str = "senate"):
+    return (
+        pd.DataFrame([{"bioguide": bioguide, "official_full": "T", "first": "T",
+                       "last": "T", "fec": f"['{cand_id}']"}]),
+        pd.DataFrame([{"committee": committee, "bioguide": bioguide, "chamber": chamber,
+                       "congress": "119", "title": "", "rank": "1"}]),
+    )
 
-    They must yield nothing rather than being silently invented.
+
+def test_committees_marked_none_attribute_nothing():
+    """The ethics committees, Printing and the Library carry the NO_MAPPING sentinel.
+
+    Their jurisdiction is procedural, so they must yield nothing rather than have an
+    industry silently invented for them.
     """
     from fec_newsletter import congress
-    legislators = pd.DataFrame([{"bioguide": "X000005", "official_full": "T",
-                                 "first": "T", "last": "T", "fec": "['H0TEST0005']"}])
-    membership = pd.DataFrame([
-        {"committee": "SLIA", "bioguide": "X000005", "chamber": "senate",
-         "congress": "119", "title": "", "rank": "1"},
-    ])
+    legislators, membership = _one_seat("X000005", "H0TEST0005", "HSSO", "house")
     assert len(congress.candidate_newsletter_weights(legislators, membership)) == 0
+
+
+def test_committee_absent_from_the_crosswalk_attributes_nothing():
+    """A code the file has never heard of is not guessed at."""
+    from fec_newsletter import congress
+    legislators, membership = _one_seat("X000015", "H0TEST0015", "ZZNONE")
+    assert len(congress.candidate_newsletter_weights(legislators, membership)) == 0
+
+
+def test_authored_top_level_label_attributes_without_subcommittees():
+    """Senate Indian Affairs has no subcommittees, so its label is authored on the row.
+
+    Nothing can be derived for such a committee, so a blank cell means it attributes
+    nothing at all -- the label has to be readable straight off the top-level row.
+    """
+    from fec_newsletter import congress
+    legislators, membership = _one_seat("X000016", "S0TEST0016", "SLIA")
+    w = congress.candidate_newsletter_weights(legislators, membership)
+    assert set(w["newsletter"]) == {"Tribal Affairs"}
+    assert w["weight"].sum() == pytest.approx(1.0)
+
+
+def test_authored_top_level_label_replaces_the_derived_union():
+    """An authored label is a statement about the whole committee, not an addition to it."""
+    from fec_newsletter import congress
+    mapping = pd.DataFrame([
+        {"name": "C", "thomas_id": "HSAG", "jurisdiction_source": "",
+         "subcommittee_name": "Sub", "subcommittee_thomas_id": "15",
+         "newsletters": "Agri", "notes": ""},
+        {"name": "C", "thomas_id": "HSAG", "jurisdiction_source": "",
+         "subcommittee_name": "", "subcommittee_thomas_id": "",
+         "newsletters": "Finance", "notes": ""},
+    ])
+    cn = congress.committee_newsletters(mapping)
+    top = cn[(cn["code"] == "HSAG") & (cn["level"] == "committee")]
+    assert set(top["newsletter"]) == {"Finance & Insurance"}
 
 
 def test_committees_are_weighted_equally_regardless_of_breadth():
